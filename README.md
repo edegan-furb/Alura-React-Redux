@@ -1,7 +1,6 @@
 <p>
- <img src="https://www.alura.com.br/assets/api/cursos/react-gerenciamento-estados-globais-redux.svg" title="Redux"  alt="Redux" width="45" height="45"/> 
- <h1>Managing Global States with Redux</h1>
- </p>
+ <img src="https://www.alura.com.br/assets/api/cursos/react-gerenciamento-estados-globais-redux.svg" title="Redux"  alt="Redux" width="45" height="45"/> <h1>Managing Global States with Redux</h1>
+</p>
 
 ## Introduction
 
