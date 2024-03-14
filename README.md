@@ -1,4 +1,4 @@
-# Managing Global States with Redux
+![[alt text](http://url/to/img.png](https://www.alura.com.br/assets/api/cursos/react-gerenciamento-estados-globais-redux.svg)) # Managing Global States with Redux
 
 ## Introduction
 
