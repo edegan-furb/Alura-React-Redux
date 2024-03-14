@@ -1,4 +1,4 @@
-![Redux](https://www.alura.com.br/assets/api/cursos/react-gerenciamento-estados-globais-redux.svg)  #Managing Global States with Redux
+# Managing Global States with Redux
 ## Introduction
 
 This guide aims to provide an understanding of managing global states in React applications using Redux and Redux Toolkit. We'll explore the concepts of immutability, the benefits of using Redux for state management, and how to utilize React-Redux hooks for efficient coding practices.
