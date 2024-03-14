@@ -1,70 +1,108 @@
-# Getting Started with Create React App
+# Managing Global States with Redux
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Introduction
 
-## Available Scripts
+This guide aims to provide an understanding of managing global states in React applications using Redux and Redux Toolkit. We'll explore the concepts of immutability, the benefits of using Redux for state management, and how to utilize React-Redux hooks for efficient coding practices.
 
-In the project directory, you can run:
+## Getting Started with Redux
 
-### `npm start`
+Redux is a predictable state container for JavaScript apps. It helps you write applications that behave consistently, run in different environments (client, server, and native), and are easy to test.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Old Way of Creating States
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Initially, Redux required several boilerplate codes, such as defining action types, action creators, and reducers manually.
 
-### `npm test`
+```
+// Action Types
+const ADD_TODO = 'ADD_TODO';
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+// Action Creator
+function addTodo(text) {
+  return {
+    type: ADD_TODO,
+    text
+  }
+}
 
-### `npm run build`
+// Reducer
+function todoReducer(state = [], action) {
+  switch (action.type) {
+    case ADD_TODO:
+      return [...state, { text: action.text }];
+    default:
+      return state;
+  }
+}
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Setting Up Redux
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Install Redux: npm install redux
+2. Create a store: Use createStore from Redux.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Transitioning to Redux Toolkit
 
-### `npm run eject`
+Redux Toolkit simplifies Redux application development. It includes utilities to configure stores, create reducers, perform immutable updates, and more.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+const todosSlice = createSlice({
+  name: 'todos',
+  initialState: [],
+  reducers: {
+    addTodo: (state, action) => {
+      state.push({ text: action.payload });
+    },
+  },
+});
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+const store = configureStore({
+  reducer: {
+    todos: todosSlice.reducer,
+  },
+});
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+export const { addTodo } = todosSlice.actions;
+```
 
-## Learn More
+## Understanding Immutability
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Immutability is a core concept in Redux. It means that the state object cannot be changed directly. Instead, you must generate a new object with the changes. This practice helps prevent unintended side effects and makes state changes predictable.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Using React-Redux Hooks
 
-### Code Splitting
+React-Redux hooks such as useSelector and useDispatch make it easier to interact with the Redux store in functional components.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { addTodo } from './store';
 
-### Analyzing the Bundle Size
+function TodoApp() {
+  const dispatch = useDispatch();
+  const todos = useSelector((state) => state.todos);
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+  const handleAddTodo = () => {
+    dispatch(addTodo('New Todo'));
+  };
 
-### Making a Progressive Web App
+  return (
+    <div>
+      <button onClick={handleAddTodo}>Add Todo</button>
+      <ul>
+        {todos.map((todo, index) => (
+          <li key={index}>{todo.text}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Best Practices for State Management
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Keep your state shape flat: This makes it easier to write reducers and avoid deep nesting.
+2. Use Redux Toolkit: It simplifies Redux development and reduces boilerplate.
+3. Normalize state shape: Helps in managing relationships and ensures consistency.
+4. Immutable updates: Always return new state objects instead of mutating the existing ones.
