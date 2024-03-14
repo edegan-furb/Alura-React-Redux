@@ -1,26 +1,26 @@
-@import "styles/breakpoints";
+@import 'styles/breakpoints';
 
 .nav {
   align-items: center;
   display: grid;
   grid-template-columns: 1fr 2fr 2fr;
-  grid-template-areas: "logo links busca icones";
+  grid-template-areas: 'logo links busca icones';
   height: 100px;
   padding: 0 120px;
   position: absolute;
   width: 100vw;
   z-index: 1;
-  @media (max-width: $tablet) {
+  @media(max-width: $tablet) {
     grid-template-areas:
-      "logo logo"
-      "links icones"
-      "busca busca";
+      'logo logo'
+      'links icones'
+      'busca busca';
     grid-template-columns: 6fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     height: 200px;
     justify-items: center;
   }
-  @media (max-width: $mobile-sm) {
+  @media(max-width: $mobile-sm) {
     padding: 0 50px;
   }
 }
@@ -35,7 +35,7 @@
   display: flex;
   justify-content: flex-start;
   gap: 20px;
-  @media (max-width: $tablet) {
+  @media(max-width: $tablet) {
     justify-self: start;
   }
 }

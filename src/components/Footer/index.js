@@ -5,7 +5,7 @@ import {
   FaInstagram
 } from 'react-icons/fa';
 
-const iconsProps = {
+const iconeProps = {
   color: 'white',
   size: 24,
 }
@@ -14,12 +14,12 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <div>
-        <FaFacebook {...iconsProps} />
-        <FaTwitter {...iconsProps} />
-        <FaInstagram {...iconsProps} />
+        <FaFacebook {...iconeProps} />
+        <FaTwitter {...iconeProps} />
+        <FaInstagram {...iconeProps} />
       </div>
       <span>
-        Desenvolvido por Edegan.
+        Desenvolvido por Alura.
       </span>
     </footer>
   )
